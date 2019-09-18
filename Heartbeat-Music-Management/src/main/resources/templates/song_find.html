@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>首页 - 心随乐动后台管理系统</title>
+    <link rel="icon" href="../favicon.ico" type="image/ico">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="../css/style.min.css" rel="stylesheet">
+    <!--对话框-->
+    <link rel="stylesheet" href="../js/jconfirm/jquery-confirm.min.css">
+    <!--表格-->
+    <link rel="stylesheet" href="../css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+</head>
+
+<body>
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar">
+            <!-- logo -->
+            <div id="logo" class="sidebar-header">
+                <a href="/admin/index" style="font-size: 22px;font-family: 'WenQuanYi Micro Hei',serif">
+                    <img src="../images/music2.png" title="心随乐动" alt="心随乐动" style="height: 36px;width: 36px;"/>
+                    心随乐动
+                </a>
+            </div>
+            <div class="lyear-layout-sidebar-scroll">
+
+                <nav class="sidebar-main">
+                    <ul class="nav nav-drawer">
+                        <li class="nav-item"> <a href="/admin/index"><i class="mdi mdi-home"></i> 后台首页</a> </li>
+                        <li class="nav-item nav-item-has-subnav">
+                            <a href="javascript:void(0)"><i class="mdi mdi-account-circle"></i> 歌手管理</a>
+                            <ul class="nav nav-subnav">
+                                <li> <a href="/singer/findSinger">歌手信息</a> </li>
+                                <li> <a href="/singer/addSinger">增加歌手</a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-item-has-subnav active open">
+                            <a href="javascript:void(0)"><i class="mdi mdi-itunes"></i> 歌曲管理</a>
+                            <ul class="nav nav-subnav">
+                                <li class="active"> <a href="/song/findSong">歌曲信息</a> </li>
+                                <li> <a href="/song/addSong">增加歌曲</a> </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-footer" style="margin-top: 300px;">
+                    <p class="copyright">Copyright &copy; 2019. <a target="_blank" href="/admin/index">心随乐动</a> All rights reserved.</p>
+                </div>
+            </div>
+
+        </aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+
+            <nav class="navbar navbar-default">
+                <div class="topbar">
+                    <div class="topbar-left">
+                        <div class="lyear-aside-toggler">
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                        </div>
+                        <span class="navbar-page-title"> 后台首页 </span>
+                    </div>
+
+                    <ul class="topbar-right">
+                        <li class="dropdown dropdown-profile">
+                            <a href="javascript:void(0)" data-toggle="dropdown">
+                                <img class="img-avatar img-avatar-48 m-r-10" src="../images/users/avatar.jpg" alt="胡歌" />
+                                <span> 胡歌 <span class="caret"></span></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li> <a href=""><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                                <li> <a href=""><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                                <li class="divider"></li>
+                                <li> <a href="/admin/login"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-toolbar clearfix">
+                                <form class="pull-right search-bar" method="get" action="#!" role="form">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="请输入关键词...">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-default" type="button">搜索</button>
+                                        </span>
+                                    </div>
+                                </form>
+                                <div class="toolbar-btn-action">
+                                    <a class="btn btn-primary m-r-5" href="#!"><i class="mdi mdi-plus"></i> 新增</a>
+                                    <a class="btn btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table id="song_table" data-classes="table table-bordered table-striped table-hover"></table>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <form action="/singer/updateSinger">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                        <h4 class="modal-title" id="myLargeModalLabel">歌手管理 - 修改歌手信息</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label" for="singerName">姓名</label>
+                                                            <input class="form-control" type="text" id="singerName" name="singerName" placeholder="请输入姓名.." required>
+                                                            <input class="form-control" type="text" id="singerId" name="singerId" th:type="hidden">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label" for="sex">性别</label>
+                                                            <select name="sex" class="form-control" id="sex" required>
+                                                                <option value="男">男</option>
+                                                                <option value="女">女</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label" for="nationality">国籍</label>
+                                                            <input class="form-control" type="text" id="nationality" name="nationality" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label" for="style">风格</label>
+                                                            <input class="form-control" type="text" id="style" name="style" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button type="submit" class="btn btn-primary">保存</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="lrcModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                        <h4 class="modal-title" id="myLrcModalLabel">歌手管理 - 查看歌词</h4>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align: center;"></div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+        <input id="message" th:value="${message}" hidden/>
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="../js/main.min.js"></script>
+
+<!--对话框-->
+<script src="../js/jconfirm/jquery-confirm.min.js"></script>
+<!--消息提示-->
+<script src="../js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="../js/lightyear.js"></script>
+<script src="../js/bootstrap-table.js"></script>
+<script src="../js/bootstrap-table-zh-CN.js"></script>
+
+
+<script type="text/javascript">
+
+    var msg = $("#message").val();
+    if (msg !== '') {
+        lightyear.notify(msg, 'success', 80);
+    }
+
+    // 删除
+    function delConfirm(id) {
+        $.alert({
+            title: '提示',
+            content: '确认删除？',
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    btnClass: 'btn-primary',
+                    action: function(){
+                        location.href="/song/deleteSong/"+id;
+                    }
+                },
+                cancel: {
+                    text: '取消',
+                    action: function () {}
+                }
+            }
+        });
+    }
+
+    $('#song_table').bootstrapTable({
+        url: '/song/songMessage',
+        pagination: true,
+        striped: true,
+        pageSize: 6,
+        pageList: [6, 12,18],
+        cardView: false,
+        columns: [{
+            checkbox: true
+        }, {
+            field: 'songId',
+            title: '歌曲id',
+            align: 'center',
+            width: 20
+        }, {
+            field: 'songName',
+            title: '歌曲名',
+            sortable: true,
+            align: 'center'
+        }, {
+            field: 'singerName',
+            title: '歌手名',
+            sortable: true,
+            align: 'center'
+        }, {
+            field: 'albumName',
+            title: '专辑',
+            sortable: true,
+            align: 'center'
+        }, {
+            field: 'style',
+            title: '风格',
+            sortable: true,
+            align: 'center'
+        }, {
+            field: 'language',
+            title: '语言',
+            sortable: true,
+            align: 'center'
+        }, {
+            field: 'downloadTimes',
+            title: '下载量',
+            sortable: true,
+            align: 'center'
+        }, {
+            field: 'searchTimes',
+            title: '查询量',
+            sortable: true,
+            align: 'center'
+        }, {
+            field: 'uploadTime',
+            title: '上传时间',
+            sortable: true,
+            align: 'center'
+        }, {
+            field: 'lyricAddress',
+            title: '歌词',
+            align: 'center',
+            formatter: lrcFormatter
+        }, {
+            field: 'songId',
+            title: '操作',
+            align: 'center',
+            formatter: actionFormatter
+        }]
+    });
+
+    //操作栏的格式化
+    function actionFormatter(value,row) {
+        var id = value;
+        var result = "";
+        result += "<a class='btn btn-xs btn-default' title='编辑'><i class=\"mdi mdi-pencil\"></i></a>";
+        result += "<a class='btn btn-xs btn-default' onclick=\"delConfirm('"+id+"')\" title='删除' data-toggle='tooltip'><i class=\"mdi mdi-window-close\"></i></a>";
+
+        return result;
+    }
+
+
+    function lrcFormatter(value) {
+        var result = "";
+        result+="<a onclick=\"getLrc('"+value+"')\" class=\"btn btn-xs btn-link\" data-toggle=\"modal\" data-target=\"#lrcModal\">查看歌词</a>";
+        return result;
+    }
+
+    function getLrc(lyricAddress) {
+        var lrc="";
+        var modal = $('#lrcModal');
+        $.ajax({
+            type: "post",
+            url: "/song/lrcLoad/"+lyricAddress,
+            dataType: "text",
+            contentType: 'text/json,charset=utf-8',
+            success:function(data){
+                lrc=data.toString();
+                lrc=lrc.replace(/-/g,'<br/>');
+                modal.find('.modal-body').html(lrc);
+            },
+            error:function(){
+                lrc="加载失败";
+                modal.find('.modal-body').text(lrc);
+            }
+        });
+    }
+
+    function setMessage(id,name,sex,nationality,style) {
+        var modal = $('#myModal');
+        modal.find('#singerId').val(id);
+        modal.find('#singerName').val(name);
+        modal.find('#sex').val(sex);
+        modal.find('#nationality').val(nationality);
+        modal.find('#style').val(style);
+    }
+</script>
+</body>
+</html>
