@@ -1,6 +1,7 @@
 package com.study.heartbeatmusicmanagement.controller;
 
 import com.study.heartbeatmusicmanagement.domain.Song;
+import com.study.heartbeatmusicmanagement.service.SingerService;
 import com.study.heartbeatmusicmanagement.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class SongController {
 
     @Autowired
     SongService songService;
+    @Autowired
+    SingerService singerService;
 
     @RequestMapping("/findSong")
     public String findSong(Model model,@ModelAttribute("message") String message){
@@ -35,6 +38,12 @@ public class SongController {
     @ResponseBody
     public List<Song> songMessage(){
         return songService.findSong();
+    }
+
+    @RequestMapping("/addSong")
+    public String addSong(Model model){
+        model.addAttribute("singerList",singerService.findSinger(""));
+        return "song_add";
     }
 
     @RequestMapping("/deleteSong/{songId}")
