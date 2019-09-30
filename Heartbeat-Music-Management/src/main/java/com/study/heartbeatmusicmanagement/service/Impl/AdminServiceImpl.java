@@ -2,6 +2,7 @@ package com.study.heartbeatmusicmanagement.service.Impl;
 
 import com.study.heartbeatmusicmanagement.dao.AdminDao;
 import com.study.heartbeatmusicmanagement.domain.Admin;
+import com.study.heartbeatmusicmanagement.domain.Data;
 import com.study.heartbeatmusicmanagement.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin loginCheck(String account,String password) {
         return adminDao.loginCheck(account,password);
+    }
+
+    @Override
+    public Data findData() {
+        return adminDao.findData();
     }
 }

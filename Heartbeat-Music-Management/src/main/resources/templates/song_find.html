@@ -116,31 +116,25 @@
                                     <table id="song_table" data-classes="table table-bordered table-striped table-hover"></table>
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                         <div class="modal-dialog" role="document">
-                                            <form action="/singer/updateSinger">
+                                            <form action="/song/updateSong" enctype="multipart/form-data" method="post" >
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                        <h4 class="modal-title" id="myLargeModalLabel">歌曲管理 - 修改歌歌曲信息</h4>
+                                                        <h4 class="modal-title" id="myLargeModalLabel">歌曲管理 - 修改歌曲信息</h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            <label class="col-md-3 control-label" for="songName">姓名</label>
+                                                            <label class="col-md-3 control-label" for="songName">歌曲名</label>
                                                             <input class="form-control" type="text" id="songName" name="songName" placeholder="请输入歌曲名.." required>
-                                                            <input class="form-control" type="text" id="songId" name="singerId" th:type="hidden">
+                                                            <input class="form-control" type="text" id="songId" name="songId" th:type="hidden">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-md-3 control-label" for="singName">歌手</label>
-                                                            <select name="singName" class="form-control" id="singName" required>
-                                                                <option value="男">歌手1</option>
-                                                                <option value="女">歌手2</option>
-                                                            </select>
+                                                            <label class="col-md-3 control-label" for="singerName">歌手</label>
+                                                            <input class="form-control" type="text" id="singerName" name="singerName" readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label" for="albumName">专辑</label>
-                                                            <select name="albumName" class="form-control" id="albumName" required>
-                                                                <option value="男">专辑1</option>
-                                                                <option value="女">专辑2</option>
-                                                            </select>
+                                                            <input class="form-control" type="text" id="albumName" name="albumName" readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label" for="style">风格</label>
@@ -148,15 +142,15 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label" for="language">语言</label>
-                                                            <input class="form-control" type="text" id="language" name="style" required>
+                                                            <input class="form-control" type="text" id="language" name="language" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label">歌词</label>
-                                                            <input type="file" id="lyricAddress" name="lyricAddress" data-allowed-file-types='["lrc"]'>
+                                                            <input type="file" id="lyricAddress" name="lyricAddress" accept=".lrc">
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label">音频</label>
-                                                            <input type="file" id="audioAddress" name="audioAddress" data-allowed-file-types='["mp3","mp4"]'>
+                                                            <input type="file" id="audioAddress" name="audioAddress" accept=".mp3,.mp4">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -303,10 +297,16 @@
     //操作栏的格式化
     function actionFormatter(value,row) {
         var id = row.songId;
-        var name = row.songName;
+        var songName=row.songName;
+        var singerName = row.singerName;
+        var albumName = row.albumName;
+        var style=row.style;
+        var language = row.language;
+        var lyricAddress=row.lyricAddress;
+        var audioAddress = row.audioAddress;
 
         var result = "";
-        result += "<a class='btn btn-xs btn-default' onclick=\"setMessage('"+id+"')\" data-toggle=\"modal\" data-target=\"#myModal\" title='编辑'><i class=\"mdi mdi-pencil\"></i></a>";
+        result += "<a class='btn btn-xs btn-default' onclick=\"setMessage('"+id+"','"+songName+"','"+singerName+"','"+albumName+"','"+style+"','"+language+"','"+lyricAddress+"','"+audioAddress+"')\" data-toggle=\"modal\" data-target=\"#myModal\" title='编辑'><i class=\"mdi mdi-pencil\"></i></a>";
         result += "<a class='btn btn-xs btn-default' onclick=\"delConfirm('"+id+"')\" title='删除' data-toggle='tooltip'><i class=\"mdi mdi-window-close\"></i></a>";
 
         return result;
@@ -339,9 +339,16 @@
         });
     }
 
-    function setMessage(id) {
+    function setMessage(id,songName,singerName,albumName,style,language,lyricAddress,audioAddress) {
         var modal = $('#myModal');
         modal.find('#songId').val(id);
+        modal.find('#songName').val(songName);
+        modal.find('#singerName').val(singerName);
+        modal.find('#albumName').val(albumName);
+        modal.find('#style').val(style);
+        modal.find('#language').val(language);
+        modal.find('#lyricAddress').val(lyricAddress);
+        modal.find('#audioAddress').val(audioAddress);
     }
 </script>
 </body>

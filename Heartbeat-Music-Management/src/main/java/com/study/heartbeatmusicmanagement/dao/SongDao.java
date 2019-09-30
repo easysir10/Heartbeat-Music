@@ -58,8 +58,8 @@ public interface SongDao {
      * @param songName      歌曲名
      * @param style         风格
      * @param language      语言
-     * @param lyric_address 歌词地址
-     * @param audio_address 音频地址
+     * @param lyricAddress 歌词地址
+     * @param audioAddress 音频地址
      * @author Hu.Wang 2019-09-10 11:08
      * @return int
      */
@@ -70,32 +70,28 @@ public interface SongDao {
                    @Param("songName") String songName,
                    @Param("style") String style,
                    @Param("language") String language,
-                   @Param("lyric_address") String lyric_address,
-                   @Param("audio_address") String audio_address);
+                   @Param("lyric_address") String lyricAddress,
+                   @Param("audio_address") String audioAddress);
 
     /**
      * 更新歌曲信息
      *
      * @param songId        歌曲id
-     * @param singerId      歌手id
-     * @param albumId       专辑id
      * @param songName      歌曲名
      * @param style         风格
      * @param language      语言
-     * @param lyric_address 歌词地址
-     * @param audio_address 音频地址
+     * @param lyricAddress 歌词地址
+     * @param audioAddress 音频地址
      * @author Hu.Wang 2019-09-10 11:31
      * @return int
      */
-    @Update("update `song` set singer_id=#{singerId},album_id=#{albumId},song_name=#{songName},style=#{style}," +
+    @Update("update `song` set song_name=#{songName},style=#{style}," +
             "language=#{language},lyric_address=#{lyric_address},audio_address=#{audio_address}" +
             "where song_id=#{songId}")
     int updateSong(@Param("songId") String songId,
-                   @Param("singerId") int singerId,
-                   @Param("albumId") int albumId,
                    @Param("songName") String songName,
                    @Param("style") String style,
                    @Param("language") String language,
-                   @Param("lyric_address") String lyric_address,
-                   @Param("audio_address") String audio_address);
+                   @Param("lyric_address") String lyricAddress,
+                   @Param("audio_address") String audioAddress);
 }

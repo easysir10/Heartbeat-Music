@@ -91,7 +91,9 @@ public class AdminController {
     }
 
     @RequestMapping("/index")
-    public String index(){
+    public String index(Model model){
+        model.addAttribute("data",adminService.findData());
         return "index";
     }
+
 }

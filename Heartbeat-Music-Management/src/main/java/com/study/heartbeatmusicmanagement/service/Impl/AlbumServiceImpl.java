@@ -4,6 +4,7 @@ import com.study.heartbeatmusicmanagement.dao.AlbumDao;
 import com.study.heartbeatmusicmanagement.domain.Album;
 import com.study.heartbeatmusicmanagement.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author Hu.Wang 2019/09/20 11:02
  */
+@Service
 public class AlbumServiceImpl implements AlbumService {
 
     @Autowired

@@ -1,6 +1,7 @@
 package com.study.heartbeatmusicmanagement.service;
 
 import com.study.heartbeatmusicmanagement.domain.Song;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -36,28 +37,26 @@ public interface SongService {
      * @param songName      歌曲名
      * @param style         风格
      * @param language      语言
-     * @param lyric_address 歌词地址
-     * @param audio_address 音频地址
+     * @param lyricAddress 歌词地址
+     * @param audioAddress 音频地址
      * @author Hu.Wang 2019-09-10 11:08
      * @return int
      */
-    int insertSong(int singerId,int albumId,String songName,String style,String language,String lyric_address,String audio_address);
+    int insertSong(int singerId, int albumId, String songName, String style, String language, MultipartFile lyricAddress, MultipartFile audioAddress);
 
     /**
      * 更新歌曲信息
      *
      * @param songId        歌曲id
-     * @param singerId      歌手id
-     * @param albumId       专辑id
      * @param songName      歌曲名
      * @param style         风格
      * @param language      语言
-     * @param lyric_address 歌词地址
-     * @param audio_address 音频地址
+     * @param lyricAddress 歌词地址
+     * @param audioAddress 音频地址
      * @author Hu.Wang 2019-09-10 11:31
      * @return int
      */
-    int updateSong(String songId,int singerId,int albumId,String songName,String style,String language,String lyric_address,String audio_address);
+    int updateSong(String songId,String songName,String style,String language,MultipartFile lyricAddress,MultipartFile audioAddress);
 
     /**
      * 获取歌词内容

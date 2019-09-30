@@ -1,6 +1,7 @@
 package com.study.heartbeatmusicmanagement.dao;
 
 import com.study.heartbeatmusicmanagement.domain.Admin;
+import com.study.heartbeatmusicmanagement.domain.Data;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -23,4 +24,11 @@ public interface AdminDao {
      */
     @Select("select * from `user` where password = #{password} and telephone = #{account} or email = #{account}")
     Admin loginCheck(@Param("account") String account,@Param("password") String password);
+
+    @Select("SELECT COUNT(*) as user_count," +
+            "(select sum(play_times) from song) as play_times, " +
+            "(select sum(download_times) from song) as download_times, " +
+            "(select sum(search_times) from song) as search_times " +
+            " from user;")
+    Data findData();
 }

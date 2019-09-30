@@ -23,9 +23,10 @@ public interface AlbumDao {
      * @return java.util.List<com.study.heartbeatmusicmanagement.domain.Album>
      */
     @Select("<script>"+
-                "select album_id,album_name,singer_id,singer_name,publish_time,bk_img from `album`,`singer` "+
+                "select `album`.album_id,`album`.album_name,`album`.singer_id,`singer`.singer_name,`album`.publish_time," +
+                " `album`.bk_img from `album`,`singer` "+
                     "<where>"+
-                        "<if test='singerId!=null'>"+
+                        "<if test='singerId!=-1'>"+
                             " or singer_id = #{singerId} "+
                         "</if>"+
                         " and `album`.singer_id=`singer`.singer_id "+

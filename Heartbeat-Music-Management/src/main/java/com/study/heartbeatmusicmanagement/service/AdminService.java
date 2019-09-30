@@ -1,6 +1,7 @@
 package com.study.heartbeatmusicmanagement.service;
 
 import com.study.heartbeatmusicmanagement.domain.Admin;
+import com.study.heartbeatmusicmanagement.domain.Data;
 
 /**
  * description
@@ -18,4 +19,6 @@ public interface AdminService {
      * @return Admin
      */
     Admin loginCheck(String account,String password);
+
+    Data findData();
 }
