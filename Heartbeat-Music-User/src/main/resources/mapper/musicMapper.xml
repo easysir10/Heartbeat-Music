@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.music_with_heart.dao.MusicMapper">
+
+        <select id="recommendMusicList" resultType="com.demo.music_with_heart.entity.Music">
+            SELECT * FROM music m LEFT JOIN recommend_playlist r ON m.recommend_name = r.recommend_name where r.id=#{id}
+        </select>
+
+        <select id="playMusic" parameterType="Integer" resultType="com.demo.music_with_heart.entity.Music">
+            select * from music where id = #{id}
+        </select>
+
+        <select id="totalMusic" parameterType="String" resultType="Integer">
+            select count(*) from music where recommend_name like #{recommend_name}
+        </select>
+
+
+</mapper>

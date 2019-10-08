@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.music_with_heart.dao.RecommendCommentMapper">
+
+    <select id="findByCommentRecommendList" resultType="com.demo.music_with_heart.entity.RecommendComment">
+        select * from recommend_comment where recommend_name= #{recommend_name}
+    </select>
+
+    <select id="totalRecommendComment" parameterType="String" resultType="Integer">
+         select count(*) from recommend_comment where recommend_name = #{recommend_name}
+    </select>
+
+    <insert id="InsertComment" parameterType="com.demo.music_with_heart.entity.RecommendComment" useGeneratedKeys="true" keyProperty="id">
+  		insert into recommend_comment(id,recommend_name,user_id,user_name,user_profile,user_comment,user_comment_time) values(null,#{recommend_name},#{user_id},#{user_name},#{user_profile},#{user_comment},#{user_comment_time})
+  	</insert>
+</mapper>

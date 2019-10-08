@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.music_with_heart.dao.AdminMapper">
+    <select id="adFindByMusic" resultType="com.demo.music_with_heart.entity.Music">
+            select * from music order by singer_name
+    </select>
+
+    <select id="adFindByMusicMsg" resultType="com.demo.music_with_heart.entity.Music">
+            select * from music where song_name = #{song_name} and singer_name = #{singer_name}
+    </select>
+
+    <delete id="delMusic" parameterType="Integer">
+        delete from music where id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.music_with_heart.dao.RecommendListMapper">
+
+    <select id="findByRecommendPlayList" resultType="com.demo.music_with_heart.entity.RecommendPlayList">
+        select * from recommend_playlist
+    </select>
+
+    <select id="findByOneRecommendPlayList" resultType="com.demo.music_with_heart.entity.RecommendPlayList">
+        select * from recommend_playlist where recommend_name=#{recommend_name)}
+    </select>
+
+</mapper>
+
